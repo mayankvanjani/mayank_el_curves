@@ -12,7 +12,7 @@
   Inputs:   struct matrix * points
             double cx
 	    double cy
-	    double y
+	    double r
 	    double step  
   Returns: 
 
@@ -23,6 +23,10 @@
 void add_circle( struct matrix * points, 
 		 double cx, double cy, 
 		 double r, double step ) {
+
+  double t = 0;
+  for ( ; t <= 1; t += step ) {
+    cx = 
 }
 
 /*======== void add_curve() ==========
