@@ -25,8 +25,14 @@ void add_circle( struct matrix * points,
 		 double r, double step ) {
 
   double t = 0;
+  double x0,y0,x,y;
   for ( ; t <= 1; t += step ) {
-    cx = 
+    x = r * (cos( 2 * M_PI * t )) + cx;
+    y = r * (cos( 2 * M_PI * t )) + cy;
+    add_edge( points, x0,y0,0, x,y,0 );
+    x0 = x;
+    y0 = y;
+  }    
 }
 
 /*======== void add_curve() ==========

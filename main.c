@@ -21,6 +21,10 @@ int main( int argc, char **argv ) {
     parse_file( argv[1], transform, edges, s );
   else
     parse_file( "stdin", transform, edges, s );
+
+  add_circle( edges, 250,250,100,0.1);
+  save_extension(s, "curves.png");
+  display(s);
   
   free_matrix( transform );
   free_matrix( edges );

@@ -81,8 +81,113 @@ void parse_file ( char * filename,
   
   while ( fgets(line, 255, f) != NULL ) {
     line[strlen(line)-1]='\0';
-    printf(":%s:\n",line);  
+
+    if ( strcmp( line, "line") == 0 ) {
+
+    }
+    else if ( strcmp( line, "circle") == 0 ) {
+
+    }
+    else if ( strcmp( line, "circle") == 0 ) {
+    else if ( line == "hermite" ) {
+
+    }
+        else if ( strcmp( line, "circle") == 0 ) {
+    else if ( line == "bezier" ) {
+
+    }
+        else if ( strcmp( line, "circle") == 0 ) {
+    else if ( line == "scale" ) {
+
+    }
+        else if ( strcmp( line, "circle") == 0 ) {
+    else if ( line == "translate" ) {
+
+    }
+        else if ( strcmp( line, "circle") == 0 ) {
+    else if ( line == "xrotate" ) {
+
+    }
+        else if ( strcmp( line, "circle") == 0 ) {
+    else if ( line == "yrotate" ) {
+
+    }
+        else if ( strcmp( line, "circle") == 0 ) {
+    else if ( line == "zrotate" ) {
+
+    }
+        else if ( strcmp( line, "circle") == 0 ) {
+    else if ( line == "ident" ) {
+
+    }
+        else if ( strcmp( line, "circle") == 0 ) {
+    else if ( line == "apply" ) {
+
+    }
+        else if ( strcmp( line, "circle") == 0 ) {
+    else if ( line == "display" ) {
+
+    }
+        else if ( strcmp( line, "circle") == 0 ) {
+    else if ( line == "save" ) {
+
+    }
+        else if ( strcmp( line, "circle") == 0 ) {
+    else if ( line == "quit" ) {
+
+    }
+    
+    printf("%s\n",line);  
   }
+
+  //STARTING
+  /*
+  while ( fgets( line, 255, f) != NULL) {
+    //    line
+    if ( line == "line" ) {
+
+    }
+    else if ( line == "circle" ) {
+
+    }
+    else if ( line == "hermite" ) {
+
+    }
+    else if ( line == "bezier" ) {
+
+    }
+    else if ( line == "scale" ) {
+
+    }
+    else if ( line == "translate" ) {
+
+    }
+    else if ( line == "xrotate" ) {
+
+    }
+    else if ( line == "yrotate" ) {
+
+    }
+    else if ( line == "zrotate" ) {
+
+    }
+    else if ( line == "ident" ) {
+
+    }
+    else if ( line == "apply" ) {
+
+    }
+    else if ( line == "display" ) {
+
+    }
+    else if ( line == "save" ) {
+
+    }
+    else if ( line == "quit" ) {
+
+    }
+  */
+
 }
 
   
