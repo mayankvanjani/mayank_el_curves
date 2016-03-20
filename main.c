@@ -22,7 +22,6 @@ int main( int argc, char **argv ) {
   else
     parse_file( "stdin", transform, edges, s );
 
-  add_circle( edges, 250,250,100,0.1);
   save_extension(s, "curves.png");
   display(s);
   

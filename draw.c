@@ -26,9 +26,11 @@ void add_circle( struct matrix * points,
 
   double t = 0;
   double x0,y0,x,y;
-  for ( ; t <= 1; t += step ) {
-    x = r * (cos( 2 * M_PI * t )) + cx;
-    y = r * (cos( 2 * M_PI * t )) + cy;
+  x0 = r * (cos(0)) + cx;
+  y0 = r * (sin(0)) + cy;
+  for ( ; t <= 1.01; t += step ) {
+    x = r * (cos( t * 2 * M_PI )) + cx;
+    y = r * (cos( t * 2 * M_PI )) + cy;
     add_edge( points, x0,y0,0, x,y,0 );
     x0 = x;
     y0 = y;
@@ -62,6 +64,53 @@ void add_curve( struct matrix *points,
 		double x2, double y2, 
 		double x3, double y3, 
 		double step, int type ) {
+  double a, b, c, d, e, f, g, h, x, y, t = 0.0;
+
+  struct matrix * herm = make_hermite();
+  struct matrix * bez = make_bezier();
+  struct matrix * stuff = new_matrix( 4, 2);
+  if (type == 0) { //HERMITE
+    /*
+    P0 = 2*(t*t*t) - 3*(t*t) + 1;
+    P1 = -2*(t*t*t) + 3*(t*t);
+    R0 = (t*t*t) - 2*(t*t) + t;
+    R1 = (t*t*t) + (t*t); 
+    */
+    stuff->m[0][0]=x0;
+    stuff->m[0][1]=y0;
+    stuff->m[1][0]=x1;
+    stuff->m[1][1]=y1;
+    stuff->m[2][0]=x2;
+    stuff->m[2][1]=y2;
+    stuff->m[3][0]=x3;
+    stuff->m[3][1]=y3;
+    matrix_mult( herm, stuff ); // gives a,b,c,d, e, f, g, h
+  }
+  else { //BEZIER
+    stuff->m[0][0]=x0;
+    stuff->m[0][1]=y0;
+    stuff->m[1][0]=x1;
+    stuff->m[1][1]=y1;
+    stuff->m[2][0]=x2;
+    stuff->m[2][1]=y2;
+    stuff->m[3][0]=x3;
+    stuff->m[3][1]=y3;
+    matrix_mult( bez, stuff ); // gives a,b,c,d,e,f,g,h                    
+  }
+  a = stuff->m[0][0];
+  e = stuff->m[0][1];
+  b = stuff->m[1][0];
+  f = stuff->m[1][1];
+  c = stuff->m[2][0];
+  g = stuff->m[2][1];
+  d = stuff->m[3][0];
+  h = stuff->m[3][1];
+  while ( t < 1 ) {
+    x = t * (t * (a * t + b) + c) + d;
+    y = t * (t * (e * t + f) + g) + h;
+    add_point( points, x, y, 0);
+    t += step;
+  }
 }
 
 /*======== void add_point() ==========

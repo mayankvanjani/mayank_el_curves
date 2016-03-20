@@ -71,122 +71,186 @@ void parse_file ( char * filename,
 
   FILE *f;
   char line[256];
-  
+  color c;
+  char *line_arr[100];
+  int param[10];
+  char *token;
+  int counter = 0;
   clear_screen(s);
+
+  c.red = 0;
+  c.green = 0;
+  c.blue = 0;
 
   if ( strcmp(filename, "stdin") == 0 ) 
     f = stdin;
   else
     f = fopen(filename, "r");
   
-  while ( fgets(line, 255, f) != NULL ) {
-    line[strlen(line)-1]='\0';
-
-    if ( strcmp( line, "line") == 0 ) {
-
-    }
-    else if ( strcmp( line, "circle") == 0 ) {
-
-    }
-    else if ( strcmp( line, "circle") == 0 ) {
-    else if ( line == "hermite" ) {
-
-    }
-        else if ( strcmp( line, "circle") == 0 ) {
-    else if ( line == "bezier" ) {
-
-    }
-        else if ( strcmp( line, "circle") == 0 ) {
-    else if ( line == "scale" ) {
-
-    }
-        else if ( strcmp( line, "circle") == 0 ) {
-    else if ( line == "translate" ) {
-
-    }
-        else if ( strcmp( line, "circle") == 0 ) {
-    else if ( line == "xrotate" ) {
-
-    }
-        else if ( strcmp( line, "circle") == 0 ) {
-    else if ( line == "yrotate" ) {
-
-    }
-        else if ( strcmp( line, "circle") == 0 ) {
-    else if ( line == "zrotate" ) {
-
-    }
-        else if ( strcmp( line, "circle") == 0 ) {
-    else if ( line == "ident" ) {
-
-    }
-        else if ( strcmp( line, "circle") == 0 ) {
-    else if ( line == "apply" ) {
-
-    }
-        else if ( strcmp( line, "circle") == 0 ) {
-    else if ( line == "display" ) {
-
-    }
-        else if ( strcmp( line, "circle") == 0 ) {
-    else if ( line == "save" ) {
-
-    }
-        else if ( strcmp( line, "circle") == 0 ) {
-    else if ( line == "quit" ) {
-
-    }
-    
-    printf("%s\n",line);  
+  while ( fgets(line, sizeof(line), f) != NULL ) {
+    // line[strlen(line)-1]='\0';
+    //    printf( "%s", line);
+    line_arr[counter] = strdup(line);
+    counter++;
   }
 
   //STARTING
   /*
-  while ( fgets( line, 255, f) != NULL) {
-    //    line
-    if ( line == "line" ) {
-
-    }
-    else if ( line == "circle" ) {
-
-    }
-    else if ( line == "hermite" ) {
-
-    }
-    else if ( line == "bezier" ) {
-
-    }
-    else if ( line == "scale" ) {
-
-    }
-    else if ( line == "translate" ) {
-
-    }
-    else if ( line == "xrotate" ) {
-
-    }
-    else if ( line == "yrotate" ) {
-
-    }
-    else if ( line == "zrotate" ) {
-
-    }
-    else if ( line == "ident" ) {
-
-    }
-    else if ( line == "apply" ) {
-
-    }
-    else if ( line == "display" ) {
-
-    }
-    else if ( line == "save" ) {
-
-    }
-    else if ( line == "quit" ) {
-
-    }
+  printf( "\n\n%s", line_arr[0] );
+  char *test = line_arr[0];
+  printf( "%lu\n", strlen( test ));
+  if (strcmp( line_arr[0], "circle\n") == 0) {
+    printf("WORKED\n");
+  }
   */
+  for (int j = 0; j < counter; j++) {
+    //    printf( "%s", line_arr[j] );
+
+    if ( strcmp( line_arr[j], "line\n" ) == 0 ) {
+      char *test_line = line_arr[j+1];
+      test_line[strlen(test_line)-1] = ' ';
+      token = strtok( test_line, " ");
+      int z = 0;
+      while (token != NULL ){
+	param[z] = atoi(token);
+	token = strtok(NULL, " ");
+	z++;
+      }
+      add_edge( pm, param[0], param[1], param[2], param[3], param[4], param[5] ); 
+    }
+    else if ( strcmp( line_arr[j], "circle\n" ) == 0 ) {
+      char *test_line = line_arr[j+1];
+      test_line[strlen(test_line)-1] = ' ';
+      printf( "\ncircle test_line: %s\n", test_line);
+      token = strtok( test_line, " ");
+      int z = 0;
+      while (token != NULL ){
+        param[z] = atoi(token);
+	//	printf( "param[%d]: %d\n", z, param[z]);
+        token = strtok( NULL, " ");
+        z++;
+      }
+      printf( "0: %d, 1: %d, 2: %d\n", param[0],param[1],param[2]);     
+      add_circle( pm, param[0], param[1], param[2], .01);
+    }
+    else if ( strcmp( line_arr[j], "hermite\n" ) == 0 ) {
+      char *test_line = line_arr[j+1];
+      test_line[strlen(test_line)-1] = ' ';
+      printf( "\nhermite test_line: %s\n", test_line);
+      token = strtok( test_line, " ");
+      int z = 0;
+      while (token != NULL ){
+        param[z] = atoi(token);
+        token = strtok(NULL, " ");
+        z++;
+      }
+      for (int i = 0; i < 8; i++ ) {
+	printf( "param[%d]: %d\n", i, param[i]);
+      }
+      add_curve(pm,param[0],param[1],param[2],param[3],param[4],param[5],param[6],param[7],.01,0);
+    }
+    else if ( strcmp( line_arr[j], "bezier\n" ) == 0 ) {
+      char *test_line = line_arr[j+1];
+      test_line[strlen(test_line)-1] = ' ';
+      printf( "\nbezier test_line: %s\n", test_line);
+      token = strtok( test_line, " ");
+      int z = 0;
+      while (token != NULL ){
+        param[z] = atoi(token);
+        token = strtok(NULL, " ");
+        z++;
+      }
+      for (int i = 0; i < 8; i++ ) {
+        printf( "param[%d]: %d\n", i, param[i]);
+      }
+      add_curve(pm,param[0],param[1],param[2],param[3],param[4],param[5],param[6],param[7],.01,1);
+    }
+    else if ( strcmp( line_arr[j], "ident\n" ) == 0 ) {
+      ident(transform);
+    }
+    else if ( strcmp( line_arr[j], "scale\n" ) == 0 ) {
+      char *test_line = line_arr[j+1];
+      test_line[strlen(test_line)-1] = ' ';
+      token = strtok( test_line, " ");
+      int z = 0;
+      while (token != NULL ){
+        param[z] = atoi(token);
+        token = strtok(NULL, " ");
+        z++;
+      }
+      struct matrix * mult = make_scale( param[0], param[1], param[2] );
+      matrix_mult(mult, transform);
+    }
+    else if ( strcmp( line_arr[j], "translate\n" ) == 0 ) {
+      char *test_line = line_arr[j+1];
+      test_line[strlen(test_line)-1] = ' ';
+      token = strtok( test_line, " ");
+      int z = 0;
+      while (token != NULL ){
+        param[z] = atoi(token);
+        token = strtok(NULL, " ");
+        z++;
+      }
+      struct matrix * mult = make_translate( param[0], param[1], param[2] );
+      matrix_mult(mult, transform);
+    }
+    else if ( strcmp( line_arr[j], "xrotate\n" ) == 0 ) {
+      char *test_line = line_arr[j+1];
+      test_line[strlen(test_line)-1] = ' ';
+      token = strtok( test_line, " ");
+      int z = 0;
+      while (token != NULL ){
+        param[z] = atoi(token);
+        token = strtok(NULL, " ");
+        z++;
+      }
+      struct matrix * mult = make_rotX( param[0] );
+      matrix_mult(mult, transform);
+    }
+    else if ( strcmp( line_arr[j], "yrotate\n" ) == 0 ) {
+      char *test_line = line_arr[j+1];
+      test_line[strlen(test_line)-1] = ' ';
+      token = strtok( test_line, " ");
+      int z = 0;
+      while (token != NULL ){
+        param[z] = atoi(token);
+        token = strtok(NULL, " ");
+        z++;
+      }
+      struct matrix * mult = make_rotY( param[0] );
+      matrix_mult(mult, transform);
+    }
+    else if ( strcmp( line_arr[j], "zrotate\n" ) == 0 ) {
+      char *test_line = line_arr[j+1];
+      test_line[strlen(test_line)-1] = ' ';
+      token = strtok( test_line, " ");
+      int z = 0;
+      while (token != NULL ){
+        param[z] = atoi(token);
+        token = strtok(NULL, " ");
+        z++;
+      }
+      struct matrix * mult = make_rotZ( param[0] );
+      matrix_mult(mult, transform);
+    }
+    else if ( strcmp( line_arr[j], "apply\n" ) == 0 ) {
+      matrix_mult( transform, pm);
+    }
+    else if ( strcmp( line_arr[j], "display\n" ) == 0 ) {
+      printf("Got Here\n");
+      draw_lines( pm, s, c );
+      display(s);
+    }
+    else if ( strcmp( line_arr[j], "save\n" ) == 0 ) {
+      char *test_line = line_arr[j+1];
+      save_ppm( s, test_line );
+      save_extension( s, test_line);
+    }
+    else if ( strcmp( line_arr[j], "quit\n" ) == 0 ) {
+      return;
+    }
+
+  }
 
 }
 
