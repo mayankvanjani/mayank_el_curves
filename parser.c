@@ -76,6 +76,7 @@ void parse_file ( char * filename,
   int param[10];
   char *token;
   int counter = 0;
+  int j, i;
   clear_screen(s);
 
   c.red = 0;
@@ -103,7 +104,7 @@ void parse_file ( char * filename,
     printf("WORKED\n");
   }
   */
-  for (int j = 0; j < counter; j++) {
+  for (j = 0; j < counter; j++) {
     //    printf( "%s", line_arr[j] );
 
     if ( strcmp( line_arr[j], "line\n" ) == 0 ) {
@@ -144,7 +145,7 @@ void parse_file ( char * filename,
         token = strtok(NULL, " ");
         z++;
       }
-      for (int i = 0; i < 8; i++ ) {
+      for (i = 0; i < 8; i++ ) {
 	printf( "param[%d]: %d\n", i, param[i]);
       }
       add_curve(pm,param[0],param[1],param[2],param[3],param[4],param[5],param[6],param[7],.01,0);
@@ -160,7 +161,7 @@ void parse_file ( char * filename,
         token = strtok(NULL, " ");
         z++;
       }
-      for (int i = 0; i < 8; i++ ) {
+      for ( i = 0; i < 8; i++ ) {
         printf( "param[%d]: %d\n", i, param[i]);
       }
       add_curve(pm,param[0],param[1],param[2],param[3],param[4],param[5],param[6],param[7],.01,1);
