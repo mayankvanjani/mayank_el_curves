@@ -76,6 +76,7 @@ void parse_file ( char * filename,
   int param[10];
   char *token;
   int counter = 0;
+  int j, i;
   clear_screen(s);
 
   c.red = 0;
@@ -103,7 +104,7 @@ void parse_file ( char * filename,
     printf("WORKED\n");
   }
   */
-  for (int j = 0; j < counter; j++) {
+  for (j = 0; j < counter; j++) {
     //    printf( "%s", line_arr[j] );
 
     if ( strcmp( line_arr[j], "line\n" ) == 0 ) {
@@ -144,8 +145,14 @@ void parse_file ( char * filename,
         token = strtok(NULL, " ");
         z++;
       }
+<<<<<<< HEAD
       printf( "HERMITE: add_curve(x0:%d y0:%d x1:%d y1:%d x2:%d y2:%d x3:%d y3:%d )\n"
 	      ,param[0],param[1],param[2],param[3],param[4],param[5],param[6],param[7] );     
+=======
+      for (i = 0; i < 8; i++ ) {
+	printf( "param[%d]: %d\n", i, param[i]);
+      }
+>>>>>>> d6dee18ddb811daf6564afdb41c3fa0e98faa9b7
       add_curve(pm,param[0],param[1],param[2],param[3],param[4],param[5],param[6],param[7],.01,0);
     }
     else if ( strcmp( line_arr[j], "bezier\n" ) == 0 ) {
@@ -159,8 +166,14 @@ void parse_file ( char * filename,
         token = strtok(NULL, " ");
         z++;
       }
+<<<<<<< HEAD
       printf( "BEZIER: add_curve(x0:%d y0:%d x1:%d y1:%d x2:%d y2:%d x3:%d y3:%d )\n"
 	      ,param[0],param[1],param[2],param[3],param[4],param[5],param[6],param[7] );
+=======
+      for ( i = 0; i < 8; i++ ) {
+        printf( "param[%d]: %d\n", i, param[i]);
+      }
+>>>>>>> d6dee18ddb811daf6564afdb41c3fa0e98faa9b7
       add_curve(pm,param[0],param[1],param[2],param[3],param[4],param[5],param[6],param[7],.01,1);
     }
     else if ( strcmp( line_arr[j], "ident\n" ) == 0 ) {
