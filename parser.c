@@ -121,7 +121,7 @@ void parse_file ( char * filename,
     else if ( strcmp( line_arr[j], "circle\n" ) == 0 ) {
       char *test_line = line_arr[j+1];
       test_line[strlen(test_line)-1] = ' ';
-      printf( "\ncircle test_line: %s\n", test_line);
+      //      printf( "\ncircle test_line: %s\n", test_line);
       token = strtok( test_line, " ");
       int z = 0;
       while (token != NULL ){
@@ -130,13 +130,13 @@ void parse_file ( char * filename,
         token = strtok( NULL, " ");
         z++;
       }
-      printf( "0: %d, 1: %d, 2: %d\n", param[0],param[1],param[2]);     
+      printf( "add_circle( cx:%d, cy:%d, r:%d )\n", param[0],param[1],param[2]);     
       add_circle( pm, param[0], param[1], param[2], .01);
     }
     else if ( strcmp( line_arr[j], "hermite\n" ) == 0 ) {
       char *test_line = line_arr[j+1];
       test_line[strlen(test_line)-1] = ' ';
-      printf( "\nhermite test_line: %s\n", test_line);
+      //      printf( "\nhermite test_line: %s\n", test_line);
       token = strtok( test_line, " ");
       int z = 0;
       while (token != NULL ){
@@ -144,15 +144,14 @@ void parse_file ( char * filename,
         token = strtok(NULL, " ");
         z++;
       }
-      for (int i = 0; i < 8; i++ ) {
-	printf( "param[%d]: %d\n", i, param[i]);
-      }
+      printf( "HERMITE: add_curve(x0:%d y0:%d x1:%d y1:%d x2:%d y2:%d x3:%d y3:%d )\n"
+	      ,param[0],param[1],param[2],param[3],param[4],param[5],param[6],param[7] );     
       add_curve(pm,param[0],param[1],param[2],param[3],param[4],param[5],param[6],param[7],.01,0);
     }
     else if ( strcmp( line_arr[j], "bezier\n" ) == 0 ) {
       char *test_line = line_arr[j+1];
       test_line[strlen(test_line)-1] = ' ';
-      printf( "\nbezier test_line: %s\n", test_line);
+      //      printf( "\nbezier test_line: %s\n", test_line);
       token = strtok( test_line, " ");
       int z = 0;
       while (token != NULL ){
@@ -160,9 +159,8 @@ void parse_file ( char * filename,
         token = strtok(NULL, " ");
         z++;
       }
-      for (int i = 0; i < 8; i++ ) {
-        printf( "param[%d]: %d\n", i, param[i]);
-      }
+      printf( "BEZIER: add_curve(x0:%d y0:%d x1:%d y1:%d x2:%d y2:%d x3:%d y3:%d )\n"
+	      ,param[0],param[1],param[2],param[3],param[4],param[5],param[6],param[7] );
       add_curve(pm,param[0],param[1],param[2],param[3],param[4],param[5],param[6],param[7],.01,1);
     }
     else if ( strcmp( line_arr[j], "ident\n" ) == 0 ) {
@@ -237,7 +235,6 @@ void parse_file ( char * filename,
       matrix_mult( transform, pm);
     }
     else if ( strcmp( line_arr[j], "display\n" ) == 0 ) {
-      printf("Got Here\n");
       draw_lines( pm, s, c );
       display(s);
     }
@@ -247,6 +244,7 @@ void parse_file ( char * filename,
       save_extension( s, test_line);
     }
     else if ( strcmp( line_arr[j], "quit\n" ) == 0 ) {
+      printf("Got Here, and DONE!\n");
       return;
     }
 
